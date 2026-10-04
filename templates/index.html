@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>See how your resume reads to a recruiter</h1>
+      <p class="lede">Upload a PDF resume. The analyzer extracts the text, finds your technical skills and keywords, scores the resume and suggests what to improve.</p>
+    </header>
+
+    <label id="drop" for="file" tabindex="0">
+      <input id="file" type="file" accept=".pdf,application/pdf">
+      <strong id="drop-title">Choose a PDF resume</strong>
+      <span id="drop-sub">or drag it here. Max 5 MB. Your file is not stored.</span>
+    </label>
+
+    <div class="actions">
+      <button id="analyze" type="button" disabled>Analyze resume</button>
+    </div>
+    <p id="error" role="alert" hidden></p>
+
+    <section id="result" hidden aria-live="polite">
+      <div class="top">
+        <div class="ring" role="img" aria-label="Resume score">
+          <svg viewBox="0 0 120 120" width="150" height="150">
+            <circle cx="60" cy="60" r="52" class="bg"/>
+            <circle id="arc" cx="60" cy="60" r="52" class="fg" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="num"><b id="score">0</b><span>/ 100</span></div>
+        </div>
+        <div>
+          <h2 id="verdict"></h2>
+          <p id="meta" class="muted"></p>
+          <button id="copy" type="button" class="ghost">Copy results</button>
+        </div>
+      </div>
+
+      <h3>Score breakdown</h3>
+      <div id="breakdown" class="bars"></div>
+
+      <h3>Skills found <span id="skill-count" class="muted"></span></h3>
+      <div id="skills"></div>
+
+      <h3>Top keywords</h3>
+      <ul id="keywords" class="chips"></ul>
+
+      <h3>Suggestions</h3>
+      <ul id="suggestions" class="tips"></ul>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
